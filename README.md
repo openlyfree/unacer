@@ -6,7 +6,7 @@ i reverse engineered acersense
 
 its windows only
 
-this ones for linux
+this ones for linux (idk it might work on windows)
 
 ONLY USE THIS ON AN ACER ASPIRE 14 AI 52MT
 IDK WHAT HAPPENS FOR OTHER LAPTOPS
