@@ -15,6 +15,9 @@ enum Commands {
         #[arg(value_enum)]
         setting: PerfMode,
     },
+    /// CPU fan tachometer, in RPM.
+    #[command(name = "getrpm")]
+    GetRpm,
 }
 
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum, Debug)]
@@ -35,20 +38,37 @@ fn main() {
                 PerfMode::Normal => 0x01,
                 PerfMode::Performance => 0x00,
             };
+            
             let mut payload = vec![0xA0, 0x00, 0xA0, 0x01, 0x00, 0x01, mode, 0x00, 0x00];
             payload.resize(65, 0x00);
+            
             let reply = exchange(&device, &payload);
             let status = (reply[1] as u16) | ((reply[2] as u16) << 8);
             let command_id = (reply[3] as u16) | ((reply[4] as u16) << 8);
-            
+
             //awknowledge doesnt always mean change happened (idk tho)
             if status != 0xE000 || command_id != 0x0001 {
                 eprintln!("EC did not acknowledge: {:02X?}", reply);
                 std::process::exit(1);
             }
         }
-        
-  
+
+        Commands::GetRpm => {
+            let mut payload = vec![0xA0, 0x00, 0xA0, 0x08, 0x00, 0x02, 0x02, 0x00, 0x00];
+            payload.resize(65, 0x00);
+            
+            let reply = exchange(&device, &payload);
+            let status = (reply[1] as u16) | ((reply[2] as u16) << 8);
+            let command_id = (reply[3] as u16) | ((reply[4] as u16) << 8);
+            
+            if status != 0xE000 || command_id != 0x0008 {
+                eprintln!("EC did not acknowledge: {:02X?}", reply);
+                std::process::exit(1);
+            }
+            
+            let rpm = (reply[8] as u16) | ((reply[9] as u16) << 8);
+            println!("{rpm}");
+        }
     }
 }
 
