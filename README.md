@@ -19,6 +19,7 @@ cargo build --release
 ./target/release/unacer mode silent
 ./target/release/unacer mode normal
 ./target/release/unacer mode performance
+./target/release/unacer getrpm
 ```
 
 you need permission to open the hid device (`1025:174b`). sudo works. or put this in `/etc/udev/rules.d/99-acer-ec.rules` so anyone in `wheel` can:
