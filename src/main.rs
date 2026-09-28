@@ -16,7 +16,7 @@ enum Commands {
         setting: PerfMode,
     },
     /// CPU fan tachometer, in RPM.
-    #[command(name = "getrpm")]
+    #[command(name = "get-rpm")]
     GetRpm,
 }
 
