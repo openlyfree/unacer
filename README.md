@@ -4,6 +4,12 @@ an alternative i made for acersense on the acer aspire 14 ai 52mt
 
 i reverse engineered acersense. this just flips the performance mode (silent, normal, performance) by talking to the laptop's embedded controller over hid.
 
+performance modes are just the fan curves i think
+
+acer made it so only acersense could set these fan curves using its weird protocol
+
+i just reverse engineered it and put it into a linux cli
+
 acersense is windows only. this ones for linux (idk it might work on windows)
 
 ## ONLY USE THIS ON AN ACER ASPIRE 14 AI 52MT
