@@ -8,7 +8,11 @@ performance modes are just the fan curves i think
 
 acer made it so only acersense could set these fan curves using its weird protocol
 
-i just reverse engineered it and put it into a linux cli
+i just reverse engineered it and put it into a linux cli. it can also read the cpu fan tachometer
+
+acersense didnt even have the fan rpm thing
+
+the fan tachometer thing i got from digging in the EC code from a bios update zip (top 10 things i would rather not do again)
 
 acersense is windows only. this ones for linux (idk it might work on windows)
 
@@ -25,8 +29,10 @@ cargo build --release
 ./target/release/unacer mode silent
 ./target/release/unacer mode normal
 ./target/release/unacer mode performance
-./target/release/unacer getrpm
+./target/release/unacer get-rpm
 ```
+
+`get-rpm` prints the cpu fan speed in rpm (just the number, nothing else).
 
 you need permission to open the hid device (`1025:174b`). sudo works. or put this in `/etc/udev/rules.d/99-acer-ec.rules` so anyone in `wheel` can:
 
